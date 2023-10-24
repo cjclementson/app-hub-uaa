@@ -12,17 +12,16 @@ import com.app.hub.uaa.service.AuthenticationService;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/register")
+@RequestMapping("/api/v1/auth")
 @CrossOrigin("*")
 @AllArgsConstructor
-public class RegisterController {
+public class AuthenticationController {
 	
 	private final AuthenticationService authenticationService;
 	
-	@PostMapping()
+	@PostMapping("/register")
 	public String register(@RequestBody User user) {
 		authenticationService.registerUser(user.getEmail(), user.getUsername(), user.getPassword());
 		return "user registered!";
-	}
-
+	} 
 }

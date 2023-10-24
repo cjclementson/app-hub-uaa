@@ -9,7 +9,7 @@ import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -18,13 +18,8 @@ public class SecurityConfiguration {
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		return NoOpPasswordEncoder.getInstance();
-	}
-	
-	/*@Bean
-	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
-	}*/
+	}
 	
 	@Bean
 	public AuthenticationManager authManager(UserDetailsService detailsService) {
@@ -42,7 +37,7 @@ public class SecurityConfiguration {
 		return http.csrf(csrf -> csrf.disable())
 			.authorizeHttpRequests((requests) -> requests
 			.requestMatchers("/api/v1/user/**").authenticated()
-			.requestMatchers("/api/v1/register").permitAll())
+			.requestMatchers("/api/v1/auth/**").permitAll())
 			.formLogin(withDefaults())
 			.httpBasic(withDefaults())
 			.build();

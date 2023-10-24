@@ -1,0 +1,1 @@
+CREATE DATABASE uaa OWNER="app-hub"
