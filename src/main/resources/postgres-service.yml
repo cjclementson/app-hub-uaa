@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+
+  db:
+    container_name: postgres
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: app-hub
+      POSTGRES_PASSWORD: Admin+123
+      PGDATA: /data/postgres
+    volumes:
+      - db:/data/postgres
+    ports:
+      - "5332:5432"
+    netowrks:
+      - db
+
+networks:
+  db:
+    driver: bridge
+
+volumes:
+  db:
