@@ -1,7 +1,6 @@
-version: '3.1'
+version: '3.7'
 
 services:
-
   db:
     container_name: postgres
     image: postgres
@@ -14,12 +13,6 @@ services:
       - db:/data/postgres
     ports:
       - "5332:5432"
-    netowrks:
-      - db
-
-networks:
-  db:
-    driver: bridge
 
 volumes:
-  db:
+  db: 
