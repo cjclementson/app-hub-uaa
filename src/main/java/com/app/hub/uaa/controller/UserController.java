@@ -13,7 +13,6 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping("/api/v1/user")
-@CrossOrigin("*")
 @AllArgsConstructor
 public class UserController {
 	
