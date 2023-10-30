@@ -11,17 +11,25 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
+import com.app.hub.uaa.security.filter.JWTAuthenticationFilter;
+
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.AllArgsConstructor;
 
 @Configuration
+@AllArgsConstructor
 public class SecurityConfiguration {
+	
+	private final JWTAuthenticationFilter jwtAuthenticationFilter;
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -42,6 +50,7 @@ public class SecurityConfiguration {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		
 		return http.csrf(csrf -> csrf.disable())
+			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			.cors(cors -> cors.configurationSource(new CorsConfigurationSource() {
 				
 				@Override
@@ -70,11 +79,18 @@ public class SecurityConfiguration {
 			.requestMatchers("/api/v1/user/**").authenticated()
 			.requestMatchers("/login").permitAll()
 			.requestMatchers("/api/v1/auth/**").permitAll())
+			
+			// UsernamePasswordAuthenticationFilter
 			.formLogin(form -> 
 				form.loginPage("http://localhost:5500/login-html-css/index.html")
 					.loginProcessingUrl("/login")
 					.defaultSuccessUrl("/api/v1/user/2").permitAll())
+			
+			// HttpBasicAuthenticationFilter
+			// allows POSTMAN to add header Authorization: Basic <username:password> encoded
+			// for authentication instead of a login page
 			.httpBasic(withDefaults())
+			.addFilterAfter(jwtAuthenticationFilter, BasicAuthenticationFilter.class)
 			.build();
 	}
 
