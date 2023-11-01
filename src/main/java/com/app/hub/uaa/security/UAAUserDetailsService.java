@@ -23,7 +23,8 @@ public class UAAUserDetailsService implements UserDetailsService {
 		
 		if (!users.isPresent())
 		{
-			throw new UsernameNotFoundException(String.format("User details not found for the user {0}", username));			
+			throw new UsernameNotFoundException(
+					"There was a problem logging in. Check your email and password or create an account.");			
 		}
 		else
 		{

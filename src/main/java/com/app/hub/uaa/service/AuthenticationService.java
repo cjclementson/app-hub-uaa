@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.app.hub.uaa.exception.UserAlreadyExistAuthenticationException;
 import com.app.hub.uaa.model.User;
 import com.app.hub.uaa.repository.UserRepository;
 
@@ -23,6 +24,13 @@ public class AuthenticationService {
 	private final UserDetailsService userDetailsService;
 
 	public User registerUser(String email, String username, String password) {
+		
+		var user = userRepository.findByEmail(email);
+		
+		if(user.isPresent()) {
+			throw new UserAlreadyExistAuthenticationException(
+					"There was a problem creating your account. Check that your email address is spelled correctly.");
+		}
 
 		String encodedPassword = passwordEncoder.encode(password);
 		String role = "Admin";
@@ -32,13 +40,10 @@ public class AuthenticationService {
 	public User authenticateUser(String email, String password)  throws AuthenticationException {
 
 		User user = (User) userDetailsService.loadUserByUsername(email);
-
-		if (user == null) {
-			throw new UsernameNotFoundException(String.format("User details not found for the user {0}", email));
-		}
 		
 		if (!passwordEncoder.matches(password, user.getPassword())) {
-			throw new BadCredentialsException("Bad credentials");
+			throw new BadCredentialsException(
+					"There was a problem logging in. Check your email and password or create an account.");
 		}
 
 		return user;

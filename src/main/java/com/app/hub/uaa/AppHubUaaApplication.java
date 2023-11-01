@@ -9,5 +9,5 @@ public class AppHubUaaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AppHubUaaApplication.class, args);
 	}
-
+	
 }

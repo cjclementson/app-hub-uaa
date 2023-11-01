@@ -1,7 +1,5 @@
 package com.app.hub.uaa.security;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,12 +9,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -27,6 +25,7 @@ import lombok.AllArgsConstructor;
 
 @Configuration
 @AllArgsConstructor
+@EnableWebSecurity
 public class SecurityConfiguration {
 	
 	private final JWTAuthenticationFilter jwtAuthenticationFilter;
@@ -86,11 +85,8 @@ public class SecurityConfiguration {
 					.loginProcessingUrl("/login")
 					.defaultSuccessUrl("/api/v1/user/2").permitAll())
 			
-			// HttpBasicAuthenticationFilter
-			// allows POSTMAN to add header Authorization: Basic <username:password> encoded
-			// for authentication instead of a login page
-			.httpBasic(withDefaults())
-			.addFilterAfter(jwtAuthenticationFilter, BasicAuthenticationFilter.class)
+			// JWTAuthenticationFilter
+			.addFilterAfter(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
 			.build();
 	}
 

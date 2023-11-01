@@ -22,9 +22,9 @@ public class JWTService {
 
 	public boolean isTokenValid(String token, User userDetails) {
 		
-		final String email = getEmail(token);
-		final String username = userDetails.getEmail();
-		return email.equals(username) && !isTokenExpired(token);
+		final String tokenEmail = getEmail(token);
+		final String userEmail = userDetails.getEmail();
+		return tokenEmail.equals(userEmail) && !isTokenExpired(token);
 	}
 
 	public String generateToken(Map<String, Object> claims, UserDetails userDetails) {
@@ -34,7 +34,7 @@ public class JWTService {
 				.setClaims(claims)
 				.setSubject(userDetails.getUsername())
 				.setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24)))
+				.setExpiration(new Date(System.currentTimeMillis() + (1000 * 60 * 60 * 24)/* 24 hours */))
 				.signWith(getKey(), SignatureAlgorithm.HS256)
 				.compact();
 	}
@@ -53,11 +53,6 @@ public class JWTService {
 	public String getEmail(String token) {
 		var claims = extractClaims(token);
 		return String.valueOf(claims.get("email"));
-	}
-	
-	public String getAuthorities(String token) {
-		var claims = extractClaims(token);
-		return String.valueOf(claims.get("authorities"));
 	}
 	
 	private Claims extractClaims(String token) {
