@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  uaa-service:
+    image: ${GROUP_ID}/uaa:${SERVICE_VERSION:-latest}
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./docker-logs:/workspace/uaa/logs"
+    environment:
+      - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xms128m -Xmx256m"
+      - "SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5332/uaa"
+      - "SPRING_DATASOURCE_USERNAME=${DB_USERNAME}"
+      - "SPRING_DATASOURCE_PASSWORD=${DB_PWD}"
+    networks:
+      - ${GLOBAL_NETWORK:-services}
