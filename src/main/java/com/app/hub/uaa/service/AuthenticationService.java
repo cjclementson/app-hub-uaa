@@ -3,7 +3,6 @@ package com.app.hub.uaa.service;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -37,7 +36,7 @@ public class AuthenticationService {
 		return userRepository.save(new User(email, username, encodedPassword, role));
 	}
 
-	public User authenticateUser(String email, String password)  throws AuthenticationException {
+	public User authenticate(String email, String password)  throws AuthenticationException {
 
 		User user = (User) userDetailsService.loadUserByUsername(email);
 		

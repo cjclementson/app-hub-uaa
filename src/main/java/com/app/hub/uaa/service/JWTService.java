@@ -19,6 +19,12 @@ import io.jsonwebtoken.security.Keys;
 public class JWTService {
 	
 	private static final String SECRET_KEY = "79af958e14ae8dd5fd9ef3d6c26f7684092b4d83e2f8837b3c8d832872bae914";
+	
+	public boolean isTokenValid(String token) {
+		
+		extractClaims(token);
+		return !isTokenExpired(token);
+	}
 
 	public boolean isTokenValid(String token, User userDetails) {
 		
