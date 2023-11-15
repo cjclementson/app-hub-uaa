@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.hub.uaa.controller.error.ControllerErrorResponse;
 import com.app.hub.uaa.exception.UserAlreadyExistAuthenticationException;
+import com.app.hub.uaa.message.ErrorMessages;
 import com.app.hub.uaa.model.AuthenticationRequest;
 import com.app.hub.uaa.model.AuthenticationResponse;
 import com.app.hub.uaa.model.AuthenticationToken;
@@ -100,17 +101,17 @@ public class AuthenticationController {
 		catch (SignatureException ex){
 			
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-					new ControllerErrorResponse("Invalid JWT signature"));
+					new ControllerErrorResponse(ErrorMessages.INVALID_JWT_SIGNATURE));
 	    }
 	    catch (MalformedJwtException ex){
 	    	
 	    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-					new ControllerErrorResponse("Invalid JWT token"));
+					new ControllerErrorResponse(ErrorMessages.INVALID_JWT_TOKEN));
 	    }
 	    catch (ExpiredJwtException ex){
 	    	
 	    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-					new ControllerErrorResponse("Expired JWT token"));
+					new ControllerErrorResponse(ErrorMessages.EXPIRED_JWT_TOKEN));
 	    }
 	}
 	

@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.app.hub.uaa.exception.UserAlreadyExistAuthenticationException;
+import com.app.hub.uaa.message.ErrorMessages;
 import com.app.hub.uaa.model.User;
 import com.app.hub.uaa.repository.UserRepository;
 
@@ -28,7 +29,7 @@ public class AuthenticationService {
 		
 		if(user.isPresent()) {
 			throw new UserAlreadyExistAuthenticationException(
-					"There was a problem creating your account. Check that your email address is spelled correctly.");
+					ErrorMessages.USER_CONFLICT);
 		}
 
 		String encodedPassword = passwordEncoder.encode(password);
@@ -42,7 +43,7 @@ public class AuthenticationService {
 		
 		if (!passwordEncoder.matches(password, user.getPassword())) {
 			throw new BadCredentialsException(
-					"There was a problem logging in. Check your email and password or create an account.");
+					ErrorMessages.BAD_CREDENTIALS);
 		}
 
 		return user;

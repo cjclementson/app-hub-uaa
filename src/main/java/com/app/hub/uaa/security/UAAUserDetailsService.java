@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.app.hub.uaa.message.ErrorMessages;
 import com.app.hub.uaa.model.User;
 import com.app.hub.uaa.repository.UserRepository;
 
@@ -24,7 +25,7 @@ public class UAAUserDetailsService implements UserDetailsService {
 		if (!users.isPresent())
 		{
 			throw new UsernameNotFoundException(
-					"There was a problem logging in. Check your email and password or create an account.");			
+					ErrorMessages.USER_NAME_NOT_FOUND);			
 		}
 		else
 		{
