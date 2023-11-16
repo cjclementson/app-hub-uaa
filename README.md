@@ -8,10 +8,10 @@ An authentication and authorization microservice to handle user registration, au
 
 <h3>Steps</h3>
 <ol>
-<li>Get the source code: git clone https://github.com/cjclementson/app-hub-uaa.git</li>
-<li>Install <a href="https://www.oracle.com/java/technologies/downloads/#java17">JDK 17</a></li>
-<li>Insatll <a href="https://maven.apache.org/download.cgi">Maven</a></li>
-<li>Insatll <a href="https://www.docker.com/products/docker-desktop/">Docker</a></li>
+<li>Get the source code: git clone https://github.com/cjclementson/app-hub-uaa.git.</li>
+<li>Install <a href="https://www.oracle.com/java/technologies/downloads/#java17">JDK 17.</a></li>
+<li>Install <a href="https://maven.apache.org/download.cgi">Maven.</a></li>
+<li>Install <a href="https://www.docker.com/products/docker-desktop/">Docker Desktop.</a></li>
 <li>Make sure maven is on the your path.</li>
 </ol>
 
@@ -28,8 +28,10 @@ An authentication and authorization microservice to handle user registration, au
 <li>From within the root directory of your repository, navigate to the docker-compose directory.</li>
 <li>Edit the .env file and replace <b>{enter-db-username}</b>, <b>{enter-db-password}</b> and <b>{enter-db-name}</b> with your own values.</li>
 <li>Open cmd. From within the root directory of your repository, navigate to the deployment directory.</li>
-<li>Windows: run startup-database.bat</li>
+<li>Windows: run startup-database.bat.</li>
 </ol>
+
+<p>The PostgreSql container should be running and the specified database should be created.</p>
 
 <h2>Build and run</h2>
 
@@ -43,8 +45,8 @@ An authentication and authorization microservice to handle user registration, au
 <h3>Steps</h3>
 <ol>
 <li>Open cmd. From within the root directory of your repository, navigate to the deployment directory.</li>
-<li>Windows: run compile.bat. The result should be a docker image com.app.hub.uaa/uaa</li>
-<li>Windows: run startup-services.bat</li>
+<li>Windows: run compile.bat. The result should be a docker image com.app.hub.uaa/uaa.</li>
+<li>Windows: run startup-services.bat.</li>
 </ol>
 
 <h2>Using the API</h2>
@@ -56,32 +58,38 @@ An authentication and authorization microservice to handle user registration, au
 
 <p>See the curl commands below for examples on using the API.</p>
 
-<p>Register a user:</p>
+<p>Register a user request:</p>
 
 ```
-request:
 curl -d '{"email": "your_email@gmail.com", "username": "your_username", "password": "your_password" }' -H 'Content-Type: application/json' -X POST "http://localhost:8000/api/v1/auth/register"
+```
 
-response:
+<p>Register a user response:</p>
+
+```
 {"token": "<generated_token>" }
 ```
 
-<p>User login:</p>
+<p>User login request:</p>
 
 ```
-request:
 curl -d '{"email": "your_email@gmail.com", "password": "your_password" }' -H 'Content-Type: application/json' -X POST "http://localhost:8000/api/v1/auth/login"
+```
 
-response:
+<p>User login response:</p>
+
+```
 {"token": "<generated_token>" }
 ```
 
-<p>Validate token:</p>
+<p>Validate token request:</p>
 
 ```
-request:
 curl -d '{"token": "your_generated_token" }' -H 'Content-Type: application/json' -X POST "http://localhost:8000/api/v1/auth/validate"
+```
 
-response:
+<p>Validate token response:</p>
+
+```
 200 HTTP Status code
 ```
