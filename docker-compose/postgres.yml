@@ -6,8 +6,9 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_USER: app-hub
-      POSTGRES_PASSWORD: Admin+123
+      POSTGRES_DB: ${DB}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PWD}
       PGDATA: /data/postgres
     volumes:
       - db:/data/postgres

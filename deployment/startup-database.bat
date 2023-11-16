@@ -1,0 +1,1 @@
+docker-compose -f "C:\Dev\uaa\app-hub-uaa\docker-compose\postgres.yml" up -d
