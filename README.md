@@ -58,37 +58,40 @@ An authentication and authorization microservice to handle user registration, au
 
 <p>See the curl commands below for examples on using the API.</p>
 
-<p>Register a user request:</p>
+<h4>User registration</h4>
+<p>Request</p>
 
 ```
 curl -d '{"email": "your_email@gmail.com", "username": "your_username", "password": "your_password" }' -H 'Content-Type: application/json' -X POST "http://localhost:8000/api/v1/auth/register"
 ```
 
-<p>Register a user response:</p>
+<p>Response</p>
 
 ```
 {"token": "<generated_token>" }
 ```
 
-<p>User login request:</p>
+<h4>User login</h4>
+<p>Request</p>
 
 ```
 curl -d '{"email": "your_email@gmail.com", "password": "your_password" }' -H 'Content-Type: application/json' -X POST "http://localhost:8000/api/v1/auth/login"
 ```
 
-<p>User login response:</p>
+<p>Response</p>
 
 ```
 {"token": "<generated_token>" }
 ```
 
-<p>Validate token request:</p>
+<h4>Token validation</h4>
+<p>Request</p>
 
 ```
 curl -d '{"token": "your_generated_token" }' -H 'Content-Type: application/json' -X POST "http://localhost:8000/api/v1/auth/validate"
 ```
 
-<p>Validate token response:</p>
+<p>Response</p>
 
 ```
 200 HTTP Status code
