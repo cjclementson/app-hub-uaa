@@ -1,1 +1,1 @@
-docker-compose -f "C:\Dev\uaa\app-hub-uaa\docker-compose\common.yml" -f "C:\Dev\uaa\app-hub-uaa\docker-compose\services.yml" up -d
+docker-compose -f "..\docker-compose\common.yml" -f "..\docker-compose\services.yml" up -d
