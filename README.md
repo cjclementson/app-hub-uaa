@@ -9,9 +9,9 @@ An authentication and authorization microservice to handle user registration, au
 <h3>Steps</h3>
 <ol>
 <li>Get the source code: git clone https://github.com/cjclementson/app-hub-uaa.git.</li>
-<li>Install <a href="https://www.oracle.com/java/technologies/downloads/#java17">JDK 17.</a></li>
-<li>Install <a href="https://maven.apache.org/download.cgi">Maven.</a></li>
-<li>Install <a href="https://www.docker.com/products/docker-desktop/">Docker Desktop.</a></li>
+<li>Install <a href="https://www.oracle.com/java/technologies/downloads/#java17">JDK 17</a>.</li>
+<li>Install <a href="https://maven.apache.org/download.cgi">Maven</a>.</li>
+<li>Install <a href="https://www.docker.com/products/docker-desktop/">Docker Desktop</a>.</li>
 <li>Make sure maven is on the your path.</li>
 </ol>
 
