@@ -1,7 +1,7 @@
 <h1>UAA - User Authentication and Authorization service</h1>
 
 <p>
-An authentication and authorization microservice to handle user registration, authentication and token validation.
+An authentication and authorization microservice to handle user registration, authentication and JWT token validation.
 </p>
 
 <h2>Set up environment</h2>
